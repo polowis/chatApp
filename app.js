@@ -49,6 +49,11 @@ app.use(passport.session());
 app.use(function(req, res, next) {
   next(createError(404));
 });
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: '/profile',
+  failureRedirect: '/'
+}));
 
 // error handler
 app.use(function(err, req, res, next) {
