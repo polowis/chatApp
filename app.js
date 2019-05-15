@@ -18,6 +18,7 @@ var usersRouter = require('./routes/users');
 var about = require('./routes/about');
 var app = express();
 
+require('./controllers/users')
 //config
 const key = require('./config/key');
 
@@ -26,6 +27,13 @@ mongoose.connect(key.MongoDB, { useNewUrlParser: true }).then(() => {
 }).catch((err) => {
   console.log(err);
 });
+
+app.use(session({
+  secret: "mysecret",
+  resave: true,
+  saveUninitialized: true
+}));
+
 // view engine setup
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));

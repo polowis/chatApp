@@ -26,8 +26,3 @@ passport.use( new facebook({
 }));
 
 
-app.use(session({
-    secret: "mysecret",
-    resave: true,
-    saveUninitialized: true
-  }));
