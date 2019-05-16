@@ -17,6 +17,7 @@ const port = process.env.port || 3000;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var about = require('./routes/about');
+var userProfile = require('./routes/userProfile');
 var app = express();
 
 
@@ -50,6 +51,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/about', about);
+app.use('/profile', userProfile);
+
 // middlewares setup
 app.use(helmet());
 
