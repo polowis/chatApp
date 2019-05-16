@@ -48,10 +48,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/about', about);
-app.use('/profile', userProfile);
+
 
 // middlewares setup
 app.use(helmet());
@@ -65,7 +62,15 @@ require('./controllers/users');
 //app.use(function(req, res, next) {
  // next(createError(404));
 //});
-app.get('/auth/facebook', passport.authenticate('facebook'),
+// routing
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/about', about);
+app.use('/profile', userProfile);
+
+app.get('/auth/facebook', passport.authenticate('facebook', {
+  scope: ['email']
+}),
     function(req, res){
       res.send(200)
     }
