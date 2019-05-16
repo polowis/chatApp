@@ -4,7 +4,7 @@ const key = require('../config/key');
 //import modules
 const passport = require('passport');
 const facebook = require('passport-facebook').Strategy
-const session = require('express-session')
+const session = require('express-session');
 
 passport.serializeUser((user, done) => {
     done(null, user.id)

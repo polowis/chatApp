@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const exphbs  = require('express-handlebars');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
@@ -50,6 +51,7 @@ app.use('/users', usersRouter);
 app.use('/about', about);
 // middlewares setup
 app.use(helmet());
+app.use(bodyParser.urlencoded({extended : true}))
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -57,7 +59,11 @@ app.use(passport.session());
 app.use(function(req, res, next) {
   next(createError(404));
 });
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook'),
+    function(req, res){
+      res.send(200)
+    }
+);
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: '/profile',
   failureRedirect: '/'
