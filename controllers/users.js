@@ -41,6 +41,9 @@ passport.use( new facebook({
                 if(err){
                     return done(err);
                 }
+                if(user){
+                    return done(null, user)
+                }
             });
         }
     })
