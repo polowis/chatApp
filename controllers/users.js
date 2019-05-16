@@ -1,4 +1,4 @@
-const users = require('../models/users');
+const User = require('../models/users');
 const key = require('../config/key');
 
 //import modules
@@ -11,19 +11,20 @@ passport.serializeUser((user, done) => {
 
 })
 passport.deserializeUser((id, done) => {
-    users.findById(id,(err, user)=> {
+    User.findById(id,(err, user)=> {
         done(err, user)
     })
 });
 passport.use( new facebook({
     clientID: key.FaceBookID,
     clientSecret: key.FaceBookAppSecret,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    profileFields: ['emails', 'displayName', 'photos'] 
 
 
 }, (accessToken, refreshToken, profile, done) => {
     console.log(profile);
-    users.findOne({facebook:profile.id}, (err, user) => {
+    User.findOne({facebook:profile.id}, (err, user) => {
         if(err){
             return done(err);
         }
@@ -34,15 +35,15 @@ passport.use( new facebook({
             const newUser = {
                 facebook: profile.id,
                 username: profile.displayName,
-                email: profile.emails[0].value,
+                email: profile.emails,
                 image: `http://graph.facebook.com/${profile.id}/photos?size=large`
             }
-            new users(newUser).save((err, user)=> {
+            new User(newUser).save((err, user) => {
                 if(err){
                     return done(err);
                 }
                 if(user){
-                    return done(null, user)
+                    return done(null, user);
                 }
             });
         }
