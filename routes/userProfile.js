@@ -3,13 +3,15 @@ const express = require('express');
 var router = express.Router();
 
 
-router.get('/profile', function(req, res, next) {
+router.get('/profile', function(req, res) {
     User.findById({_id:req.user._id}).then((user) =>{
         if(user){
-            res.render('profile');
+            res.render('profile', {
+                title: 'User Profile',
+                userDisplayName: user
+            });
         }
     });
-  res.render('index');
 });
 
 module.exports = router;
