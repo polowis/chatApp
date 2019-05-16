@@ -19,7 +19,7 @@ var usersRouter = require('./routes/users');
 var about = require('./routes/about');
 var app = express();
 
-require('./controllers/users')
+
 //config
 const key = require('./config/key');
 
@@ -28,6 +28,7 @@ mongoose.connect(key.MongoDB, { useNewUrlParser: true }).then(() => {
 }).catch((err) => {
   console.log(err);
 });
+
 
 app.use(session({
   secret: "mysecret",
@@ -51,14 +52,16 @@ app.use('/users', usersRouter);
 app.use('/about', about);
 // middlewares setup
 app.use(helmet());
+
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(passport.initialize());
 app.use(passport.session());
+require('./controllers/users');
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+//app.use(function(req, res, next) {
+ // next(createError(404));
+//});
 app.get('/auth/facebook', passport.authenticate('facebook'),
     function(req, res){
       res.send(200)
