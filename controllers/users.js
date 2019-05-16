@@ -22,7 +22,22 @@ passport.use( new facebook({
 
 
 }, (accessToken, refreshToken, profile, done) => {
-    console.log(profile)
+    console.log(profile);
+    users.findOne({facebook:profile.id}, (err, user) => {
+        if(err){
+            return done(err);
+        }
+        if(user){
+            return done(null, user)
+        }
+        else{
+            const newUser = {
+                facebook: profile.id,
+                username: profile.displayName,
+                image: `http://graph.facebook.com/${profile.id}/photos?size=large`
+            }
+        }
+    })
 }));
 
 
