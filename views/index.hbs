@@ -1,5 +1,9 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+{{#if user}}
+<p>You are logged in</p>
+{{else}}
 <a href="auth/facebook">
 <button type="button" class="btn btn-primary btn-lg">Log in with facebook</button>
 </a>
+{{/if}}

@@ -1,9 +1,10 @@
 const User = require('../models/users');
 const express = require('express');
+const {requireLogin, ensureGuest} = require('../helpers/auth');
 var router = express.Router();
 //var app = express();
 
-router.get('/', function(req, res) {
+router.get('/', requireLogin, function(req, res) {
     User.findById({_id:req.user._id}).then((user) =>{
         if(user){
             user.online = true;

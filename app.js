@@ -24,6 +24,7 @@ var app = express();
 
 //config
 const key = require('./config/key');
+const {requireLogin, ensureGuest} = require('./helpers/auth');
 
 mongoose.connect(key.MongoDB, { useNewUrlParser: true }).then(() => {
   console.log('Server is connect to mongo')
@@ -48,15 +49,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-// middlewares setup
 app.use(helmet());
 
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(passport.initialize());
 app.use(passport.session());
+
+// gloabl user object
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+})
 require('./controllers/users');
 
 // catch 404 and forward to error handler
