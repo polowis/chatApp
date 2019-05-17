@@ -35,7 +35,7 @@ passport.use( new facebook({
             const newUser = {
                 facebook: profile.id,
                 username: profile.displayName,
-                email: profile.emails,
+                email: profile.emails[0].value,
                 image: `http://graph.facebook.com/${profile.id}/photos?size=large`
             }
             new User(newUser).save((err, user) => {
