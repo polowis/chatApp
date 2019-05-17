@@ -60,7 +60,9 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
 })
+// import controllers
 require('./controllers/users');
+require('./controllers/google');
 
 // catch 404 and forward to error handler
 //app.use(function(req, res, next) {
@@ -84,6 +86,12 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: '/profile',
   failureRedirect: '/'
 }));
+
+app.get('/auth/google', passport.authenticate("google"));
+app.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect: '/profile',
+  failureRedirect: '/'
+}))
 
 // error handler
 app.use(function(err, req, res, next) {
