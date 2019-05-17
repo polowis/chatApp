@@ -6,6 +6,9 @@ const userSchema =  new Schema ({
     facebook:{
         type: String
     },
+    google:{
+        type: String
+    },
     username: {
         type: String
     },
