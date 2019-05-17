@@ -6,9 +6,10 @@ var router = express.Router();
 router.get('/', function(req, res) {
     User.findById({_id:req.user._id}).then((user) =>{
         if(user){
+            console.log(user.email)
             res.render('profile', {
                 title: 'User Profile',
-                user: user
+                user: user,
             });
         }
     });
