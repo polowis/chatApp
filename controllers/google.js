@@ -20,6 +20,30 @@ passport.use( new googleStrategy({
     callbackURL: 'http://localhost:3000/auth/google/callback'
 },(accessToken, refreshToken, profile, done) => {
     console.log(profile);
+    User.findOne({google:profile.id}, (err, user) => {
+        if(err){
+            return done(err);
+        }
+        if(user){
+            return done(null, user);
+        }
+        else{
+            const newUser = {
+                google: profile.id,
+                username: profile.displayName,
+                image: profile.photos[0].value.substring(0, profile.photos[0].value)
+
+            }
+            new User(newUser).save((err, user) => {
+                if(err){
+                    return done(err);
+                }
+                if(user){
+                    return done(null, user);
+                }
+            })
+        }
+    })
 }
 ))
 

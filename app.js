@@ -94,7 +94,7 @@ app.get('/auth/google', passport.authenticate("google", {
 app.get('/auth/google/callback', passport.authenticate('google', {
   successRedirect: '/profile',
   failureRedirect: '/'
-}))
+}));
 
 // error handler
 app.use(function(err, req, res, next) {
