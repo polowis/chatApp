@@ -10,6 +10,7 @@ router.get('/', function(req, res)  {
                 throw(err);
             }
             if(user){
+                
                 req.logout();
                 res.redirect('/');
             }
