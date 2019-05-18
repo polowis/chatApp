@@ -4,7 +4,7 @@ const {requireLogin, ensureGuest} = require('../helpers/auth');
 
 /* GET home page. */
 router.get('/', ensureGuest, function(req, res, next) {
-  res.render('index', { title: 'Express', layout: 'home'});
+  res.render('index', { title: 'Express', layout: null});
 });
 
 module.exports = router;
