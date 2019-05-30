@@ -19,7 +19,9 @@ router.get('/', requireLogin, function(req, res) {
                     });
                 }
             })
-            console.log(user.email)
+            console.log(user.email) 
+            console.log("user")
+            
             
         }
     });
