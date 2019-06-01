@@ -19,6 +19,7 @@ var usersRouter = require('./routes/users');
 var about = require('./routes/about');
 var userProfile = require('./routes/userProfile');
 var logout = require('./routes/logout');
+var signup = require('./routes/newAccount');
 var app = express();
 
 
@@ -74,6 +75,7 @@ app.use('/users', usersRouter);
 app.use('/about', about);
 app.use('/profile', userProfile);
 app.use('/logout', logout);
+app.use('/signup', signup)
 
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope: ['email']
