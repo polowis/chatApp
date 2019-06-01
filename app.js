@@ -10,6 +10,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
+const flash  = require('connect-flash')
 
 const port = process.env.port || 3000;
 
@@ -55,6 +56,14 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash())
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals_error = req.flash('error')
+  next()
+
+})
 
 // gloabl user object
 app.use((req, res, next) => {
