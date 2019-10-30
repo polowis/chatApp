@@ -23,7 +23,7 @@
     "helmet": "^3.18.0",
     "http": "0.0.0",
     "http-errors": "~1.6.3",
-    "mongoose": "^5.5.8",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
