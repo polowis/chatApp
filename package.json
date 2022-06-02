@@ -9,7 +9,7 @@
     "serve": "nodemon app.js"
   },
   "dependencies": {
-    "@angular/core": "^7.2.15",
+    "@angular/core": "^11.0.5",
     "@angular/forms": "^7.2.15",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
